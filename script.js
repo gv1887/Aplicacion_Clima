@@ -1,0 +1,134 @@
+window.addEventListener('load',()=>{
+    //asignamos variables
+    let temperaturaValor = document.getElementById('temperatura-valor');
+    let temperaturaDescripcion = document.getElementById('temperatura-descripcion');
+    let ubicacion = document.getElementById('ubicacion');
+    let img = document.getElementById('iconoAnimado');
+    let buscador = document.getElementById('buscador');
+    let boton = document.getElementById('boton');
+    let caja1 = document.getElementById('caja1');
+    let caja2 = document.getElementById('caja2');
+      caja2.style.display='none';
+      
+             
+            boton.addEventListener('click',()=>{
+              let ciudad = buscador.value
+              if (ciudad === buscador.value.trim())
+              if(ciudad === ""){
+                alert("por favor, ingrese una ciudad")
+                return;
+              }
+              
+          
+              const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&appid=a18efed761bceffe039a14edda7e9517`
+      
+              fetch(url)
+                  .then(response => {return response.json() })
+                  .then ( data =>{
+
+                          if(data.cod === "404"){
+                            ubicacion.textContent = "Ciudad no encontrada";
+                            caja2.style.display = 'block';
+                            img.style.display = 'none';
+                            caja1.style.display = 'none';
+                            
+                            return;
+                          }
+
+
+                          let temp = Math.round(data.main.temp -273); //La resta es porque esta en gradps kelvin
+                          temperaturaValor.textContent = `${temp} °C`;
+                          
+                          let descrip = data.weather[0].description
+                          
+                          temperaturaDescripcion.textContent = descrip.toUpperCase()
+                          
+                          ubicacion.textContent = data.name
+
+                          
+                          if(caja2.style.display =='none'){
+                            caja2.style.display='block';
+                          }else if(caja1.style.display =='none'){
+                            caja1.style.display = 'block';
+
+                          }
+                          img.style.display = 'block';
+                          
+
+                      //iconos estaticos
+                      // let iconoCodigo = data.weather[0].icon
+                      // const url_icon = `https://openweathermap.org/img/wn/${icono}.png`
+
+                      //iconos animados
+
+                     
+                      switch (data.weather[0].main) {
+                          case 'Thunderstorm':
+                            iconoAnimado.src='animated/thunder.svg'
+
+                            break;
+                          case 'Drizzle':
+                            iconoAnimado.src='animated/rainy-2.svg'
+
+                            break;
+                          case 'Rain':
+                            iconoAnimado.src='animated/rainy-7.svg'
+
+                            break;
+                          case 'Snow':
+                            iconoAnimado.src='animated/snowy-6.svg'
+                              break;                        
+                          case 'Clear':
+                              iconoAnimado.src='animated/day.svg'
+
+                            break;
+                          case 'Atmosphere':
+                            iconoAnimado.src='animated/weather.svg'
+
+                              break;  
+                          case 'Clouds':
+                              iconoAnimado.src='animated/cloudy-day-1.svg'
+
+                              break;  
+                          default:
+                            iconoAnimado.src='animated/cloudy-day-1.svg'
+
+                        }
+      
+                  })
+                  // .catch( error =>{
+                  //   ubicacion.textContent = "Ciudad no encontrada"
+                  //   caja2.style.display='block';
+                  //   img.style.display='none';
+                  //   console.error(error)
+
+                  // })
+                  
+             })    
+        
+             
+        
+})    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
