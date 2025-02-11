@@ -59,7 +59,6 @@ window.addEventListener('load',()=>{
                       // let iconoCodigo = data.weather[0].icon
                       // const url_icon = `https://openweathermap.org/img/wn/${icono}.png`
 
-                      //iconos animados
 
                      
                       switch (data.weather[0].main) {
@@ -96,13 +95,6 @@ window.addEventListener('load',()=>{
                         }
       
                   })
-                  // .catch( error =>{
-                  //   ubicacion.textContent = "Ciudad no encontrada"
-                  //   caja2.style.display='block';
-                  //   img.style.display='none';
-                  //   console.error(error)
-
-                  // })
                   
              })    
         
