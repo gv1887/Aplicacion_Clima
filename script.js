@@ -8,19 +8,23 @@ window.addEventListener('load',()=>{
     let boton = document.getElementById('boton');
     let caja1 = document.getElementById('caja1');
     let caja2 = document.getElementById('caja2');
+    let fecha = document.getElementById('fecha');
+  
+
+    
+      const date = new Date();
+      const nombre_mes = date.toLocaleString(undefined, { month: 'short' });
       caja2.style.display='none';
       
              
-            boton.addEventListener('click',()=>{
-              let ciudad = buscador.value
-              if (ciudad === buscador.value.trim())
+      boton.addEventListener('click',()=>{
+        let ciudad = buscador.value
+        if (ciudad === buscador.value.trim())
               if(ciudad === ""){
                 alert("por favor, ingrese una ciudad")
                 return;
               }
-              
-          
-              const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&lang=es&appid=a18efed761bceffe039a14edda7e9517`
+              const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&date=${date}&lang=es&appid=a18efed761bceffe039a14edda7e9517`
       
               fetch(url)
                   .then(response => {return response.json() })
@@ -38,16 +42,21 @@ window.addEventListener('load',()=>{
 
                           let temp = Math.round(data.main.temp -273); //La resta es porque esta en gradps kelvin
                           temperaturaValor.textContent = `${temp} °C`;
+
+                          let pais = data.sys.country
                           
                           let descrip = data.weather[0].description
                           
                           temperaturaDescripcion.textContent = descrip.toUpperCase()
+
+                          fecha.textContent = nombre_mes.toUpperCase() + " - " + date.getDate() 
                           
-                          ubicacion.textContent = data.name
+                          ubicacion.textContent = data.name + " , " + pais
+                         
 
                           
                           if(caja2.style.display =='none'){
-                            caja2.style.display='block';
+                            caja2.style.display='flex';
                           }else if(caja1.style.display =='none'){
                             caja1.style.display = 'block';
 
