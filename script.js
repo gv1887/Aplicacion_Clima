@@ -35,6 +35,7 @@ window.addEventListener('load',()=>{
                             caja2.style.display = 'block';
                             img.style.display = 'none';
                             caja1.style.display = 'none';
+                            fecha.style.display = 'none';
                             
                             return;
                           }
