@@ -9,12 +9,16 @@ window.addEventListener('load',()=>{
     let caja1 = document.getElementById('caja1');
     let caja2 = document.getElementById('caja2');
     let fecha = document.getElementById('fecha');
+    let wind = document.getElementById('viento');
+    let humidity = document.getElementById('humedad');
+
   
 
     
       const date = new Date();
       const nombre_mes = date.toLocaleString(undefined, { month: 'short' });
       caja2.style.display='none';
+      caja1.style.display='none';
       
              
       boton.addEventListener('click',()=>{
@@ -39,7 +43,11 @@ window.addEventListener('load',()=>{
                             
                             return;
                           }
-
+                          
+                         
+                            caja2.style.display='flex';
+                            caja1.style.display = 'block';
+                            img.style.display = 'block';
 
                           let temp = Math.round(data.main.temp -273); //La resta es porque esta en gradps kelvin
                           temperaturaValor.textContent = `${temp} °C`;
@@ -47,22 +55,25 @@ window.addEventListener('load',()=>{
                           let pais = data.sys.country
                           
                           let descrip = data.weather[0].description
+
+                          let humedad = data.main.humidity
+
+                          let viento = data.wind.speed 
+
+                          console.log(data)
                           
                           temperaturaDescripcion.textContent = descrip.toUpperCase()
 
                           fecha.textContent = nombre_mes.toUpperCase() + " - " + date.getDate() 
                           
                           ubicacion.textContent = data.name + " , " + pais
+
+                          humidity.textContent = humedad + " %"
+
+                          wind.textContent = viento + " m/s"
                          
 
                           
-                          if(caja2.style.display =='none'){
-                            caja2.style.display='flex';
-                          }else if(caja1.style.display =='none'){
-                            caja1.style.display = 'block';
-
-                          }
-                          img.style.display = 'block';
                           
 
                       //iconos estaticos

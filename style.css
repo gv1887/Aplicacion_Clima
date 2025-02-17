@@ -112,6 +112,14 @@ body{
   
 }
 
+.datos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+
 
 @media(max-width: 650px) {
 
